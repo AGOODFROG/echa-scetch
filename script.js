@@ -1,6 +1,8 @@
 const game = {
+    penColor: "red",
+  
     fillRow: function(widthOfGrid, target){
-       
+        
 
         let i = 0
         while(i<widthOfGrid){
@@ -8,13 +10,19 @@ const game = {
             
             let Cell;
             Cell = gridCell
-            console.log(Cell)
+          
             Cell.setAttribute("id",i.toString())
+            
+        
 
             Cell.setAttribute("class","gridCell")
-        
-           target.append(Cell)
-           console.log(document.querySelector("div"))
+            console.log(`background-color:${this.penColor}`)
+
+            gridCell.addEventListener("mouseover", function(){
+                gridCell.setAttribute("style",`background-color:${game.penColor}`)
+            })
+            target.append(Cell)
+       
             i++
 
         }
@@ -41,12 +49,14 @@ const game = {
             content.appendChild(Cell)
             i++
         }
-    }
+    },
+    
+
 }
 game.makeRows(16)
 
 
-
+ 
 
 
 
