@@ -1,5 +1,6 @@
 const game = {
     penColor: "red",
+    gridSize: undefined,
   
     fillRow: function(widthOfGrid, target){
         
@@ -13,13 +14,12 @@ const game = {
           
             Cell.setAttribute("id",i.toString())
             
-        
-
             Cell.setAttribute("class","gridCell")
-            console.log(`background-color:${this.penColor}`)
+            Cell.style.width = this.gridSize + "vh"
 
             gridCell.addEventListener("mouseover", function(){
-                gridCell.setAttribute("style",`background-color:${game.penColor}`)
+                //gridCell.setAttribute("style",`background-color:${game.penColor}`)
+                gridCell.style.backgroundColor = `${game.penColor}`
             })
             target.append(Cell)
        
@@ -28,6 +28,14 @@ const game = {
         }
     },
     makeRows: function(width){
+        if(width < 15) this.gridSize = 6
+        else if(width < 30) this.gridSize = 3
+        else if(width < 60) this.gridSize = 1.5
+        else if (width < 90) this.gridSize = 1
+        else this.gridSize =0.75
+
+        document.querySelector(".content").innerHTML = ""
+
         let i = 0
         while(i<width){
             const content = document.querySelector(".content")
@@ -42,6 +50,11 @@ const game = {
             Cell.setAttribute("class","row")
             console.log()
             Cell.setAttribute("id",String(i))
+
+            //test TODO add logic
+            //Cell.setAttribute("style","height: 1vh;")
+            Cell.style.height = this.gridSize + "vh"
+            //test
             
          
             game.fillRow(width, row)
@@ -49,11 +62,19 @@ const game = {
             content.appendChild(Cell)
             i++
         }
+        
     },
-    
+
+   
 
 }
-game.makeRows(16)
+let slider = document.querySelector(".slider")
+let input = undefined
+slider.oninput = function(){
+    input = this.value
+    game.makeRows(input)
+}
+game.makeRows(20)
 
 
  
