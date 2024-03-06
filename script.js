@@ -1,6 +1,6 @@
 const game = {
-    penColor: "red",
-    gridSize: undefined,
+    penColor: undefined,
+    gridSize: undefined,// will be defined
   
     fillRow: function(widthOfGrid, target){
         
@@ -19,6 +19,13 @@ const game = {
 
             gridCell.addEventListener("mouseover", function(){
                 //gridCell.setAttribute("style",`background-color:${game.penColor}`)
+                let red = document.querySelector("#red").value
+                let green = document.querySelector("#green").value
+                let blue = document.querySelector("#blue").value
+                console.log(red,green,blue)
+                
+                game.penColor = `rgb( ${red}, ${green}, ${blue})`
+               
                 gridCell.style.backgroundColor = `${game.penColor}`
             })
             target.append(Cell)
@@ -48,7 +55,7 @@ const game = {
             Cell.setAttribute("id",i.toString())
 
             Cell.setAttribute("class","row")
-            console.log()
+        
             Cell.setAttribute("id",String(i))
 
             //test TODO add logic
@@ -72,6 +79,7 @@ let slider = document.querySelector(".slider")
 let input = undefined
 slider.oninput = function(){
     input = this.value
+    document.querySelector(".numberSpan").textContent = String(this.value)
     game.makeRows(input)
 }
 game.makeRows(20)
